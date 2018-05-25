@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace PiwaBackend.Data.Models
+namespace PiwaBackend.Data.DTOs
 {
-	public class Beer : BaseModel
+	public class CreateBeerDTO
 	{
 		[Required]
 		public string Name { get; set; }
@@ -14,6 +15,6 @@ namespace PiwaBackend.Data.Models
 		public float? IBU { get; set; }
 		public float? Blg { get; set; }
 		public string Description { get; set; }
-		public string ImagePath { get; set; }
+		public IFormFile Image { get; set; }
 	}
 }

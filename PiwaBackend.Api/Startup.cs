@@ -19,6 +19,7 @@ using PiwaBackend.Repository;
 using PiwaBackend.Repository.Interfaces;
 using PiwaBackend.Services.Interfaces;
 using PiwaBackend.Services.Services;
+using AutoMapper;
 
 namespace PiwaBackend.Api
 {
@@ -37,6 +38,9 @@ namespace PiwaBackend.Api
 			services.AddCors();
 			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 			services.AddTransient(typeof(IAuthService), typeof(AuthService));
+			services.AddTransient<IAuthService, AuthService>();
+			services.AddTransient<IBeerService, BeerService>();
+			services.AddTransient<IImageService, ImageService>();
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 				.AddJwtBearer(options =>
@@ -53,6 +57,7 @@ namespace PiwaBackend.Api
 					};
 				});
 			services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
+			services.AddAutoMapper();
 			services.AddMvc();
 		}
 
@@ -66,7 +71,7 @@ namespace PiwaBackend.Api
 
 			if (env.IsDevelopment())
 			{
-				app.UseDeveloperExceptionPage();
+				app.UseExceptionHandler();
 			}
 			app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 

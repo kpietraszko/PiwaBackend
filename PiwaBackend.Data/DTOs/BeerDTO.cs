@@ -1,19 +1,22 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace PiwaBackend.Data.Models
+namespace PiwaBackend.Data.DTOs
 {
-	public class Beer : BaseModel
+	public class BeerDTO
 	{
-		[Required]
+		public int Id { get; set; }
 		public string Name { get; set; }
 		public int Style { get; set; }
 		public decimal Alcohol { get; set; }
 		public float? IBU { get; set; }
 		public float? Blg { get; set; }
 		public string Description { get; set; }
+		[JsonIgnore]
 		public string ImagePath { get; set; }
+		public byte[] Image { get; set; }
 	}
 }

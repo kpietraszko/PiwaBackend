@@ -12,5 +12,6 @@ namespace PiwaBackend.Data.Models
 		public string Type { get; set; }
 		public int Country { get; set; }
 		public int YearEst { get; set; }
+		public string ImagePath { get; set; }
 	}
 }

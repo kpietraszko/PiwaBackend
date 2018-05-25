@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0003" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PiwaBackend.Data\PiwaBackend.Data.csproj" />
     <ProjectReference Include="..\PiwaBackend.Repository\PiwaBackend.Repository.csproj" />
   </ItemGroup>
