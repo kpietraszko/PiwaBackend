@@ -66,6 +66,12 @@ namespace PiwaBackend.Services.Services
 				return new ServiceResult<BeerDTO>("Beer doesn't exist");
 			}
 			var mappedBeer = _mapper.Map<BeerDTO>(beer);
+			if (mappedBeer.ImagePath != null)
+			{
+				var imageResult = _imageService.GetImage(mappedBeer.ImagePath);
+				if (!imageResult.IsError)
+					mappedBeer.Image = imageResult.SuccessResult;
+			}
 			return new ServiceResult<BeerDTO>(mappedBeer);
 		}
 	}

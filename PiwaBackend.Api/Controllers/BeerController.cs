@@ -35,7 +35,6 @@ namespace PiwaBackend.Api.Controllers
 			}
 			return Ok(result.SuccessResult);
 		}
-
 		[HttpGet]
 		public IActionResult GetAll()
 		{
@@ -46,7 +45,8 @@ namespace PiwaBackend.Api.Controllers
 			}
 			return Ok(result.SuccessResult);
 		}
-		[HttpGet("api/[controller]/{beerId:int}")]
+
+		[HttpGet("{beerId}")]
 		public IActionResult GetById(int beerId)
 		{
 			var result = _beerService.GetBeerById(beerId);
