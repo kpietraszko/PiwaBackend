@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PiwaBackend.Data\PiwaBackend.Data.csproj" />
+    <ProjectReference Include="..\PiwaBackend.Repository\PiwaBackend.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
