@@ -17,6 +17,8 @@ using Microsoft.IdentityModel.Tokens;
 using PiwaBackend.Data.Models;
 using PiwaBackend.Repository;
 using PiwaBackend.Repository.Interfaces;
+using PiwaBackend.Services.Interfaces;
+using PiwaBackend.Services.Services;
 
 namespace PiwaBackend.Api
 {
@@ -34,6 +36,7 @@ namespace PiwaBackend.Api
 		{
 			services.AddCors();
 			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+			services.AddTransient(typeof(IAuthService), typeof(AuthService));
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 				.AddJwtBearer(options =>
