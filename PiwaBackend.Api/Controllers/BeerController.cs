@@ -56,10 +56,14 @@ namespace PiwaBackend.Api.Controllers
 			}
 			return Ok(result.SuccessResult);
 		}
-		[HttpGet("{searchQuery:string}")]
-		public IActionResult Search(string searchQuery)
+		[HttpPost("[action]")]
+		public IActionResult Search([FromBody]SearchBeerDTO searchData)
 		{
-			var result = _beerService.SearchBeers(searchQuery);
+			if (!ModelState.IsValid)
+			{
+				return StatusCode(422, ModelState);
+			}
+			var result = _beerService.SearchBeers(searchData);
 			if (result.IsError)
 			{
 				return StatusCode(422, result.Errors);

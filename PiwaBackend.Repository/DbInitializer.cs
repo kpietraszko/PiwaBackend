@@ -30,21 +30,22 @@ namespace PiwaBackend.Repository
 				var lomza = new Brewery{ Name = "Łomża"};
 				var perla = new Brewery{ Name = "Perła"};
 				var tyskie = new Brewery{ Name = "Tyskie Browary Książęce"};
+				context.Breweries.AddRange(okocim, kasztelan, carlsberg, zywiec, amber, warka, lech, lezajsk, lomza, perla, tyskie);
 
-				context.Beers.AddRange(new Beer { Name = "Harnaś", Brewery = okocim },
-					new Beer { Name = "Kasztelan", Brewery = kasztelan },
-					new Beer { Name = "Karmi", Brewery = carlsberg },
-					new Beer { Name = "EB", Brewery = zywiec },
-					new Beer { Name = "Koźlak", Brewery = amber },
-					new Beer { Name = "Królewskie", Brewery = warka },
-					new Beer { Name = "Lech Pils", Brewery = lech },
-					new Beer { Name = "Leżajsk", Brewery = lezajsk },
-					new Beer { Name = "Łomża", Brewery = lomza },
-					new Beer { Name = "Perła", Brewery = perla },
-					new Beer { Name = "Tatra", Brewery = lezajsk},
-					new Beer { Name = "Tyskie",  Brewery = tyskie },
-					new Beer { Name = "Warka", Brewery = warka },
-					new Beer { Name = "Żywiec", Brewery = zywiec });
+				context.Beers.AddRange(new Beer { Name = "Harnaś", Brewery = okocim, Alcohol = 6m, ImagePath = "images/beers/generic.png"},
+					new Beer { Name = "Kasztelan", Brewery = kasztelan, Alcohol = 7m, ImagePath = "images/beers/generic.png" },
+					new Beer { Name = "Karmi", Brewery = carlsberg, Alcohol = 1m, ImagePath = "images/beers/generic.png" },
+					new Beer { Name = "EB", Brewery = zywiec, Alcohol = 8m, ImagePath = "images/beers/generic.png" },
+					new Beer { Name = "Koźlak", Brewery = amber, Alcohol = 6m, ImagePath = "images/beers/generic.png" },
+					new Beer { Name = "Królewskie", Brewery = warka, Alcohol = 7m, ImagePath = "images/beers/generic.png" },
+					new Beer { Name = "Lech Pils", Brewery = lech, Alcohol = 5m, ImagePath = "images/beers/generic.png" },
+					new Beer { Name = "Leżajsk", Brewery = lezajsk, Alcohol = 6m, ImagePath = "images/beers/generic.png" },
+					new Beer { Name = "Łomża", Brewery = lomza, Alcohol = 6m, ImagePath = "images/beers/generic.png" },
+					new Beer { Name = "Perła", Brewery = perla, Alcohol = 6m, ImagePath = "images/beers/generic.png" },
+					new Beer { Name = "Tatra", Brewery = lezajsk, Alcohol = 4m, ImagePath = "images/beers/generic.png" },
+					new Beer { Name = "Tyskie",  Brewery = tyskie, Alcohol = 4m, ImagePath = "images/beers/generic.png" },
+					new Beer { Name = "Warka", Brewery = warka, Alcohol = 6m, ImagePath = "images/beers/generic.png" },
+					new Beer { Name = "Żywiec", Brewery = zywiec, Alcohol = 6m, ImagePath = "images/beers/generic.png" });
 				context.SaveChanges();
 			}
 		}
