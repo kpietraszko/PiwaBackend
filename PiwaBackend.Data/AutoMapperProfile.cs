@@ -16,6 +16,10 @@ namespace PiwaBackend.Data
 			CreateMap<BeerDTO, Beer>();
 
 			CreateMap<Beer, BeerDTO>();
+
+			CreateMap<CreateBreweryDTO, Brewery>();
+
+			CreateMap<Brewery, BreweryDTO>();
 		}
 	}
 }

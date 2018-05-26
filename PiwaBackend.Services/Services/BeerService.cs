@@ -25,7 +25,7 @@ namespace PiwaBackend.Services.Services
 		}
 		public ServiceResult<int> CreateBeer(CreateBeerDTO beer)
 		{
-			var newBeer = new Beer {Name = beer.Name, Style = beer.Style, Alcohol = beer.Alcohol, IBU = beer.IBU, Blg = beer.Blg, Description = beer.Description};
+			var newBeer = _mapper.Map<Beer>(beer);
 			_beerRepostiory.Insert(newBeer);
 			if (beer.Image == null)
 			{
@@ -36,7 +36,7 @@ namespace PiwaBackend.Services.Services
 			{
 				return new ServiceResult<int>("Failed to save the image");
 			}
-			newBeer.ImagePath = imageSaveResult.SuccessResult;
+			newBeer.ImagePath = imageSaveResult.SuccessResult; //zapis sciezki do pliku obrazka w bazie
 			_beerRepostiory.Update(newBeer);
 			return new ServiceResult<int>(newBeer.Id);
 		}
@@ -73,6 +73,11 @@ namespace PiwaBackend.Services.Services
 					mappedBeer.Image = imageResult.SuccessResult;
 			}
 			return new ServiceResult<BeerDTO>(mappedBeer);
+		}
+
+		public ServiceResult<BeerDTO[]> SearchBeers(string searchQuery)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
