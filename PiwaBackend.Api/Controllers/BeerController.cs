@@ -13,7 +13,7 @@ namespace PiwaBackend.Api.Controllers
 	[Authorize]
 	[Route("api/[controller]")]
 	public class BeerController : Controller
-    {
+	{
 		private readonly IBeerService _beerService;
 
 		public BeerController(IBeerService beerService)
@@ -21,7 +21,7 @@ namespace PiwaBackend.Api.Controllers
 			_beerService = beerService;
 		}
 
-		[HttpPost] 
+		[HttpPost]
 		public IActionResult Create([FromForm]CreateBeerDTO newBeer) // /api/beer
 		{
 			if (!ModelState.IsValid)
@@ -46,10 +46,20 @@ namespace PiwaBackend.Api.Controllers
 			return Ok(result.SuccessResult);
 		}
 
-		[HttpGet("{beerId}")]
+		[HttpGet("{beerId:int}")]
 		public IActionResult GetById(int beerId)
 		{
 			var result = _beerService.GetBeerById(beerId);
+			if (result.IsError)
+			{
+				return StatusCode(422, result.Errors);
+			}
+			return Ok(result.SuccessResult);
+		}
+		[HttpGet("{searchQuery:string}")]
+		public IActionResult Search(string searchQuery)
+		{
+			var result = _beerService.SearchBeers(searchQuery);
 			if (result.IsError)
 			{
 				return StatusCode(422, result.Errors);

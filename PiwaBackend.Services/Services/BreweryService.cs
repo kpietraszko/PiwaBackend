@@ -41,6 +41,23 @@ namespace PiwaBackend.Services.Services
 			return new ServiceResult<int>(newBrewery.Id);
 		}
 
+		//public ServiceResult<BreweryDTO[]> GetAllBreweries()
+		//{
+		//	var allBeers = _beerRepostiory.GetAll();
+		//	var allBeersMapped = _mapper.Map<BeerDTO[]>(allBeers);
+
+		//	//foreach (var beer in allBeersMapped)
+		//	//{
+		//	//	if (beer.ImagePath != null)
+		//	//	{
+		//	//		var imageResult = _imageService.GetImage(beer.ImagePath);
+		//	//		if (!imageResult.IsError)
+		//	//			beer.Image = imageResult.SuccessResult;
+		//	//	}
+		//	//}
+		//	return new ServiceResult<BeerDTO[]>(allBeersMapped);
+		//}
+
 		public ServiceResult<BreweryDTO> GetBreweryById(int breweryId)
 		{
 			var brewery = _breweryRepostiory.GetBy(b => b.Id == breweryId);

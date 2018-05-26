@@ -12,7 +12,7 @@ namespace PiwaBackend.Data.DTOs
 		public string Name { get; set; }
 		public int Style { get; set; }
 		public decimal Alcohol { get; set; }
-		public float? IBU { get; set; }
+		public float? Ibu { get; set; }
 		public float? Blg { get; set; }
 		public string Description { get; set; }
 		[JsonIgnore]

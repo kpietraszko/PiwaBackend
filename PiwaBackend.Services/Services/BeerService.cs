@@ -75,9 +75,31 @@ namespace PiwaBackend.Services.Services
 			return new ServiceResult<BeerDTO>(mappedBeer);
 		}
 
-		public ServiceResult<BeerDTO[]> SearchBeers(string searchQuery)
+		public ServiceResult<BeerDTO[]> SearchBeers(SearchBeerDTO searchData)
 		{
-			throw new NotImplementedException();
+			var allBeersResult = GetAllBeers();
+			if (allBeersResult.IsError)
+			{
+				return new ServiceResult<BeerDTO[]>("Error while getting beers");
+			}
+			var matchingBeers = allBeersResult.SuccessResult.Where(b => MatchesSearch(b, searchData));
+			return new ServiceResult<BeerDTO[]>(matchingBeers.ToArray());
+		}
+		private bool MatchesSearch(BeerDTO beer, SearchBeerDTO searchData)
+		{
+			if (!String.IsNullOrWhiteSpace(searchData.Name))
+			{
+				if (!beer.Name.ToLower().Contains(searchData.Name.ToLower()))
+				{
+					return false;
+				}
+			}
+			return (beer.Alcohol < searchData.AlcoholMin ||
+					beer.Alcohol > searchData.AlcoholMax ||
+					beer.Ibu < searchData.IbuMin ||
+					beer.Ibu > searchData.IbuMax ||
+					beer.Blg < searchData.BlgMin ||
+					beer.Blg > searchData.BlgMax) ? false : true;
 		}
 	}
 }
