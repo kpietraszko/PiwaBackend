@@ -52,7 +52,9 @@ namespace PiwaBackend.Services.Services
 				{
 					var imageResult = _imageService.GetImage(beer.ImagePath);
 					if (!imageResult.IsError)
+					{
 						beer.Image = imageResult.SuccessResult;
+					}
 				}
 			}
 			return new ServiceResult<BeerDTO[]>(allBeersMapped);

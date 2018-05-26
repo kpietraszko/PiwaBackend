@@ -9,9 +9,9 @@ namespace PiwaBackend.Data.Models
 	{
 		[Required]
 		public string Name { get; set; }
-		public string Type { get; set; }
-		public int Country { get; set; }
-		public int YearEst { get; set; }
+		public int? Type { get; set; }
+		public int? Country { get; set; }
+		public int? YearEst { get; set; }
 		public string ImagePath { get; set; }
 		public ICollection<Beer> Beers { get; set; }
 	}

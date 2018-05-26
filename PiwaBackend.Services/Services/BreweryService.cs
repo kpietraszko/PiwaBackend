@@ -10,7 +10,7 @@ using System.Text;
 
 namespace PiwaBackend.Services.Services
 {
-	public class BreweryService :IBreweryService
+	public class BreweryService : IBreweryService
 	{
 		private readonly IRepository<Brewery> _breweryRepostiory;
 		private readonly IImageService _imageService;
@@ -75,9 +75,37 @@ namespace PiwaBackend.Services.Services
 			return new ServiceResult<BreweryDTO>(mappedBrewery);
 		}
 
-		public ServiceResult<BreweryDTO[]> SearchBreweries(string searchQuery)
+		public ServiceResult<BreweryDTO[]> SearchBreweries(SearchBreweryDTO searchData)
 		{
-			throw new NotImplementedException();
+			var matchingBreweries = _breweryRepostiory.GetAllBy(b => MatchesSearch(b, searchData));
+			var mappedBreweries = _mapper.Map<BreweryDTO[]>(matchingBreweries);
+			foreach (var brewery in mappedBreweries)
+			{
+				if (brewery.ImagePath != null)
+				{
+					var imageResult = _imageService.GetImage(brewery.ImagePath);
+					if (!imageResult.IsError)
+					{
+						brewery.Image = imageResult.SuccessResult;
+					}
+				}
+			}
+			return new ServiceResult<BreweryDTO[]>(mappedBreweries);
+		}
+		private bool MatchesSearch(Brewery brewery, SearchBreweryDTO searchData)
+		{
+			if (!String.IsNullOrWhiteSpace(searchData.Name))
+			{
+				if (!brewery.Name.ToLower().Contains(searchData.Name.ToLower()))
+				{
+					return false;
+				}
+
+			}
+			return ((searchData.Type != null && brewery.Type != searchData.Type) ||
+				(searchData.Country != null && brewery.Country != searchData.Country) ||
+				brewery.YearEst < searchData.YearEstMin ||
+				brewery.YearEst > searchData.YearEstMax) ? false : true;
 		}
 	}
 }

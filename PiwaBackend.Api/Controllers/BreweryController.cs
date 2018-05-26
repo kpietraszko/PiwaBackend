@@ -44,5 +44,19 @@ namespace PiwaBackend.Api.Controllers
 			}
 			return Ok(result.SuccessResult);
 		}
+		[HttpPost("[action]")]
+		public IActionResult Search([FromBody]SearchBreweryDTO searchData)
+		{
+			if (!ModelState.IsValid)
+			{
+				return StatusCode(422, ModelState);
+			}
+			var result = _breweryService.SearchBreweries(searchData);
+			if (result.IsError)
+			{
+				return StatusCode(422, result.Errors);
+			}
+			return Ok(result.SuccessResult);
+		}
 	}
 }

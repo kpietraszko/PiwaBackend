@@ -10,6 +10,6 @@ namespace PiwaBackend.Services.Interfaces
 		ServiceResult<int> CreateBrewery(CreateBreweryDTO brewery);
 		//ServiceResult<BreweryDTO[]> GetAllBreweries();
 		ServiceResult<BreweryDTO> GetBreweryById(int breweryId);
-		ServiceResult<BreweryDTO[]> SearchBreweries(string searchQuery);
+		ServiceResult<BreweryDTO[]> SearchBreweries(SearchBreweryDTO searchData);
 	}
 }
