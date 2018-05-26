@@ -13,5 +13,6 @@ namespace PiwaBackend.Data.Models
 		public int Country { get; set; }
 		public int YearEst { get; set; }
 		public string ImagePath { get; set; }
+		public ICollection<Beer> Beers { get; set; }
 	}
 }

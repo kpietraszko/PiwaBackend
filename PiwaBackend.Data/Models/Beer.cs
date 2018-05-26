@@ -15,5 +15,7 @@ namespace PiwaBackend.Data.Models
 		public float? Blg { get; set; }
 		public string Description { get; set; }
 		public string ImagePath { get; set; }
+		public int BreweryId { get; set; }
+		public Brewery Brewery { get; set; }
 	}
 }
