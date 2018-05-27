@@ -8,7 +8,6 @@ namespace PiwaBackend.Data.DTOs
 	{
 		public string Name { get; set; }
 		public int? Style { get; set; }
-		public int? Country { get; set; }
 		public decimal? AlcoholMin { get; set; }
 		public decimal? AlcoholMax { get; set; }
 		public float? IbuMin { get; set; }

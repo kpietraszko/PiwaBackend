@@ -78,24 +78,6 @@ namespace PiwaBackend.Services.Services
 			mappedBeer.Country = beer.Brewery.Country;
 			return new ServiceResult<BeerDTO>(mappedBeer);
 		}
-
-		private bool MatchesSearch(BeerDTO beer, SearchBeerDTO searchData)
-		{
-			if (!String.IsNullOrWhiteSpace(searchData.Name))
-			{
-				if (!beer.Name.ToLower().Contains(searchData.Name.ToLower()))
-				{
-					return false;
-				}
-			}
-			return (beer.Alcohol < searchData.AlcoholMin ||
-					beer.Alcohol > searchData.AlcoholMax ||
-					beer.Ibu < searchData.IbuMin ||
-					beer.Ibu > searchData.IbuMax ||
-					beer.Blg < searchData.BlgMin ||
-					beer.Blg > searchData.BlgMax) ? false : true;
-		}
-
 		public ServiceResult<BeerDTO[]> GetBeersByBrewery(int breweryId)
 		{
 			var beers = _beerRepostiory.GetAllBy(b => b.BreweryId == breweryId);
@@ -123,6 +105,24 @@ namespace PiwaBackend.Services.Services
 			}
 			var matchingBeers = allBeersResult.SuccessResult.Where(b => MatchesSearch(b, searchData));
 			return new ServiceResult<BeerDTO[]>(matchingBeers.ToArray());
+		}
+
+		private bool MatchesSearch(BeerDTO beer, SearchBeerDTO searchData)
+		{
+			if (!String.IsNullOrWhiteSpace(searchData.Name))
+			{
+				if (!beer.Name.ToLower().Contains(searchData.Name.ToLower()))
+				{
+					return false;
+				}
+			}
+			return ((searchData.Style != null && beer.Style != searchData.Style) ||
+					beer.Alcohol < searchData.AlcoholMin ||
+					beer.Alcohol > searchData.AlcoholMax ||
+					beer.Ibu < searchData.IbuMin ||
+					beer.Ibu > searchData.IbuMax ||
+					beer.Blg < searchData.BlgMin ||
+					beer.Blg > searchData.BlgMax) ? false : true;
 		}
 	}
 }
