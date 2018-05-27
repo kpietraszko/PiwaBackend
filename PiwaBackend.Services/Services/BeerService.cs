@@ -25,7 +25,7 @@ namespace PiwaBackend.Services.Services
 		}
 		public ServiceResult<int> CreateBeer(CreateBeerDTO beer)
 		{
-			var newBeer = _mapper.Map<Beer>(beer);
+			var newBeer = new Beer { Name = beer.Name, Style = beer.Style, Alcohol = beer.Alcohol, IBU = beer.Ibu, Blg = beer.Blg, Description = beer.Description, BreweryId = beer.Brewery};
 			_beerRepostiory.Insert(newBeer);
 			if (beer.Image == null)
 			{
@@ -59,10 +59,9 @@ namespace PiwaBackend.Services.Services
 			}
 			return new ServiceResult<BeerDTO[]>(allBeersMapped);
 		}
-
 		public ServiceResult<BeerDTO> GetBeerById(int beerId)
 		{
-			var beer = _beerRepostiory.GetBy(b => b.Id == beerId);
+			var beer = _beerRepostiory.GetBy(b => b.Id == beerId, b => b.Brewery);
 			if (beer == null)
 			{
 				return new ServiceResult<BeerDTO>("Beer doesn't exist");
@@ -74,19 +73,12 @@ namespace PiwaBackend.Services.Services
 				if (!imageResult.IsError)
 					mappedBeer.Image = imageResult.SuccessResult;
 			}
+			mappedBeer.Brewery = beer.Brewery.Name;
+			mappedBeer.BreweryType = beer.Brewery.Type;
+			mappedBeer.Country = beer.Brewery.Country;
 			return new ServiceResult<BeerDTO>(mappedBeer);
 		}
 
-		public ServiceResult<BeerDTO[]> SearchBeers(SearchBeerDTO searchData)
-		{
-			var allBeersResult = GetAllBeers();
-			if (allBeersResult.IsError)
-			{
-				return new ServiceResult<BeerDTO[]>("Error while getting beers");
-			}
-			var matchingBeers = allBeersResult.SuccessResult.Where(b => MatchesSearch(b, searchData));
-			return new ServiceResult<BeerDTO[]>(matchingBeers.ToArray());
-		}
 		private bool MatchesSearch(BeerDTO beer, SearchBeerDTO searchData)
 		{
 			if (!String.IsNullOrWhiteSpace(searchData.Name))
@@ -102,6 +94,35 @@ namespace PiwaBackend.Services.Services
 					beer.Ibu > searchData.IbuMax ||
 					beer.Blg < searchData.BlgMin ||
 					beer.Blg > searchData.BlgMax) ? false : true;
+		}
+
+		public ServiceResult<BeerDTO[]> GetBeersByBrewery(int breweryId)
+		{
+			var beers = _beerRepostiory.GetAllBy(b => b.BreweryId == breweryId);
+			var mappedBeers = _mapper.Map<BeerDTO[]>(beers);
+			foreach (var beer in mappedBeers)
+			{
+				if (beer.ImagePath != null)
+				{
+					var imageResult = _imageService.GetImage(beer.ImagePath);
+					if (!imageResult.IsError)
+					{
+						beer.Image = imageResult.SuccessResult;
+					}
+				}
+			}
+			return new ServiceResult<BeerDTO[]>(mappedBeers);
+		}
+
+		public ServiceResult<BeerDTO[]> SearchBeers(SearchBeerDTO searchData)
+		{
+			var allBeersResult = GetAllBeers();
+			if (allBeersResult.IsError)
+			{
+				return new ServiceResult<BeerDTO[]>("Error while getting beers");
+			}
+			var matchingBeers = allBeersResult.SuccessResult.Where(b => MatchesSearch(b, searchData));
+			return new ServiceResult<BeerDTO[]>(matchingBeers.ToArray());
 		}
 	}
 }

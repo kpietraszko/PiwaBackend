@@ -19,20 +19,21 @@ namespace PiwaBackend.Repository
 
 			if (!context.Beers.Any() && !context.Breweries.Any())
 			{
-				var okocim = new Brewery{ Name = "Okocim" };
-				var kasztelan = new Brewery{ Name = "Kasztelan" };
-				var carlsberg = new Brewery{ Name = "Carlsberg" };
-				var zywiec = new Brewery{ Name = "Żywiec" };
-				var amber = new Brewery{ Name = "Amber" };
-				var warka = new Brewery{ Name = "Warka"};
-				var lech = new Brewery{ Name = "Lech" };
-				var lezajsk = new Brewery{ Name = "Leżajsk"};
-				var lomza = new Brewery{ Name = "Łomża"};
-				var perla = new Brewery{ Name = "Perła"};
-				var tyskie = new Brewery{ Name = "Tyskie Browary Książęce"};
+				var okocim = new Brewery{ Name = "Okocim", Type = 0, Country = 166 };
+				var kasztelan = new Brewery{ Name = "Kasztelan", Type = 0, Country = 166 };
+				var carlsberg = new Brewery{ Name = "Carlsberg", Type = 0, Country = 166 };
+				var zywiec = new Brewery{ Name = "Żywiec", Type = 0, Country = 166 };
+				var amber = new Brewery{ Name = "Amber", Type = 0, Country = 166 };
+				var warka = new Brewery{ Name = "Warka", Type = 0, Country = 166};
+				var lech = new Brewery{ Name = "Lech", Type = 0, Country = 166 };
+				var lezajsk = new Brewery{ Name = "Leżajsk", Type = 0, Country = 166};
+				var lomza = new Brewery{ Name = "Łomża", Type = 0, Country = 166};
+				var perla = new Brewery{ Name = "Perła", Type = 0, Country = 166};
+				var tyskie = new Brewery{ Name = "Tyskie Browary Książęce", Type = 0, Country = 166};
 				context.Breweries.AddRange(okocim, kasztelan, carlsberg, zywiec, amber, warka, lech, lezajsk, lomza, perla, tyskie);
 
-				context.Beers.AddRange(new Beer { Name = "Harnaś", Brewery = okocim, Alcohol = 6m, ImagePath = "images/beers/generic.png"},
+				var beers = new Beer[] {
+				new Beer { Name = "Harnaś", Brewery = okocim, Alcohol = 6m, ImagePath = "images/beers/generic.png"},
 					new Beer { Name = "Kasztelan", Brewery = kasztelan, Alcohol = 7m, ImagePath = "images/beers/generic.png" },
 					new Beer { Name = "Karmi", Brewery = carlsberg, Alcohol = 1m, ImagePath = "images/beers/generic.png" },
 					new Beer { Name = "EB", Brewery = zywiec, Alcohol = 8m, ImagePath = "images/beers/generic.png" },
@@ -45,7 +46,14 @@ namespace PiwaBackend.Repository
 					new Beer { Name = "Tatra", Brewery = lezajsk, Alcohol = 4m, ImagePath = "images/beers/generic.png" },
 					new Beer { Name = "Tyskie",  Brewery = tyskie, Alcohol = 4m, ImagePath = "images/beers/generic.png" },
 					new Beer { Name = "Warka", Brewery = warka, Alcohol = 6m, ImagePath = "images/beers/generic.png" },
-					new Beer { Name = "Żywiec", Brewery = zywiec, Alcohol = 6m, ImagePath = "images/beers/generic.png" });
+					new Beer { Name = "Żywiec", Brewery = zywiec, Alcohol = 6m, ImagePath = "images/beers/generic.png" }};
+
+
+				foreach (var beer in beers)
+				{
+					beer.Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vulputate nibh vel elit ultricies, at lobortis nulla dictum. Mauris vitae leo viverra eros pulvinar rhoncus. Ut ut molestie sem, ut porttitor ex. Etiam sodales fermentum nibh eget egestas. Etiam quam lorem, imperdiet vel elementum id, eleifend fermentum magna. Sed ac tortor malesuada, dignissim tortor ut, convallis nisi.";
+				}
+				context.Beers.AddRange(beers);
 				context.SaveChanges();
 			}
 		}

@@ -45,7 +45,7 @@ namespace PiwaBackend.Services.Services
 			if (user != null)
 			{
 				var tokenString = BuildToken(user);
-				return new ServiceResult<TokenDTO>(new TokenDTO(tokenString));
+				return new ServiceResult<TokenDTO>(new TokenDTO(tokenString, user.Id));
 			}
 			return new ServiceResult<TokenDTO>("Incorrect login data");
 		}

@@ -7,10 +7,12 @@ namespace PiwaBackend.Data.DTOs
 	public class TokenDTO
 	{
 		public string Token { get; set; }
+		public int UserId { get; set; }
 
-		public TokenDTO(string token)
+		public TokenDTO(string token, int userId)
 		{
 			Token = token;
+			UserId = userId;
 		}
 	}
 }

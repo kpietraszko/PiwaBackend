@@ -11,5 +11,6 @@ namespace PiwaBackend.Services.Interfaces
 		ServiceResult<BeerDTO[]> GetAllBeers();
 		ServiceResult<BeerDTO> GetBeerById(int beerId);
 		ServiceResult<BeerDTO[]> SearchBeers(SearchBeerDTO searchData);
+		ServiceResult<BeerDTO[]> GetBeersByBrewery(int breweryId);
 	}
 }

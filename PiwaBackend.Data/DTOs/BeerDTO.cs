@@ -18,5 +18,8 @@ namespace PiwaBackend.Data.DTOs
 		[JsonIgnore]
 		public string ImagePath { get; set; }
 		public byte[] Image { get; set; }
+		public string Brewery { get; set; }
+		public int? BreweryType { get; set; }
+		public int? Country { get; set; }
 	}
 }

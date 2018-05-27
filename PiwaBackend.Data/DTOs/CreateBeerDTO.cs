@@ -16,5 +16,7 @@ namespace PiwaBackend.Data.DTOs
 		public float? Blg { get; set; }
 		public string Description { get; set; }
 		public IFormFile Image { get; set; }
+		[Required]
+		public int Brewery { get; set; }
 	}
 }

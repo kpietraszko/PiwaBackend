@@ -42,6 +42,7 @@ namespace PiwaBackend.Api
 			services.AddTransient<IBeerService, BeerService>();
 			services.AddTransient<IImageService, ImageService>();
 			services.AddTransient<IBreweryService, BreweryService>();
+			services.AddTransient<IUserService, UserService>();
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 				.AddJwtBearer(options =>

@@ -10,7 +10,6 @@ using PiwaBackend.Services.Interfaces;
 
 namespace PiwaBackend.Api.Controllers
 {
-	[Authorize]
 	[Route("api/[controller]")]
 	public class BreweryController : Controller
 	{
@@ -20,6 +19,8 @@ namespace PiwaBackend.Api.Controllers
 		{
 			_breweryService = breweryService;
 		}
+
+		[Authorize]
 		[HttpPost]
 		public IActionResult Create([FromForm]CreateBreweryDTO newBrewery) // /api/brewery
 		{
@@ -38,6 +39,16 @@ namespace PiwaBackend.Api.Controllers
 		public IActionResult GetById(int breweryId) // /api/brewery/1
 		{
 			var result = _breweryService.GetBreweryById(breweryId);
+			if (result.IsError)
+			{
+				return StatusCode(422, result.Errors);
+			}
+			return Ok(result.SuccessResult);
+		}
+		[HttpGet]
+		public IActionResult GetAll()
+		{
+			var result = _breweryService.GetAllBreweries();
 			if (result.IsError)
 			{
 				return StatusCode(422, result.Errors);
